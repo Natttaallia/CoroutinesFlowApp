@@ -1,12 +1,15 @@
 package com.android.study.coroutinesflowapp.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.android.study.coroutinesflowapp.R
+import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
+import com.android.study.coroutinesflowapp.databinding.MainFragmentBinding
+import com.android.study.coroutinesflowapp.ui.main.adapter.MonstersAdapter
+import com.android.study.coroutinesflowapp.ui.main.adapter.SpellsAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
 
@@ -14,19 +17,47 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModel()
+    private var binding: MainFragmentBinding? = null
+
+    private val adapterMonsters by lazy {
+        MonstersAdapter(arrayListOf())
+    }
+
+    private val adapterSpells by lazy {
+        SpellsAdapter(arrayListOf())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+    ): View? {
+        binding = MainFragmentBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding?.searchTv?.doAfterTextChanged {
+            viewModel.setQuery(it.toString())
+        }
+        binding?.searchMonstersRv?.adapter = adapterMonsters
+        binding?.searchSpellsRv?.adapter = adapterSpells
+        viewModel.monsters.observe(viewLifecycleOwner) {
+            it?.let {
+                adapterMonsters.updateData(it)
+            }
+        }
+        viewModel.spells.observe(viewLifecycleOwner) {
+            it?.let {
+                adapterSpells.updateData(it)
+            }
+        }
     }
 
 }
