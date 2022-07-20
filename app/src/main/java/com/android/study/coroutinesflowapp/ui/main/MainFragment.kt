@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.android.study.coroutinesflowapp.databinding.MainFragmentBinding
 import com.android.study.coroutinesflowapp.ui.main.adapter.MonstersAdapter
 import com.android.study.coroutinesflowapp.ui.main.adapter.SpellsAdapter
+import com.android.study.coroutinesflowapp.utils.Analytics
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -29,6 +30,11 @@ class MainFragment : DaggerFragment() {
 
     private val adapterSpells by lazy {
         SpellsAdapter()
+    }
+
+    @Inject
+    fun sendAnalyticsOnCreate(analytics: Analytics) {
+        analytics.sendAnalytics()
     }
 
     override fun onCreateView(
