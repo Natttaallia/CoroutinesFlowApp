@@ -9,8 +9,9 @@ import com.android.study.coroutinesflowapp.api.ApiService
 import com.android.study.coroutinesflowapp.api.Spell
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
-class MainViewModel(private val networkService: ApiService) : ViewModel() {
+class MainViewModel @Inject constructor(private val networkService: ApiService) : ViewModel() {
     private var jobMonsters: Job? = null
     private var jobSpells: Job? = null
     private val query = MutableStateFlow<String?>("")

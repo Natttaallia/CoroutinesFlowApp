@@ -9,15 +9,18 @@ import androidx.fragment.app.Fragment
 import com.android.study.coroutinesflowapp.databinding.MainFragmentBinding
 import com.android.study.coroutinesflowapp.ui.main.adapter.MonstersAdapter
 import com.android.study.coroutinesflowapp.ui.main.adapter.SpellsAdapter
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class MainFragment : Fragment() {
+class MainFragment : DaggerFragment() {
 
     companion object {
         fun newInstance() = MainFragment()
     }
 
-    private val viewModel: MainViewModel by viewModel()
+    @Inject
+    lateinit var viewModel: MainViewModel
+
     private var binding: MainFragmentBinding? = null
 
     private val adapterMonsters by lazy {

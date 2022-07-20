@@ -1,27 +1,16 @@
 package com.android.study.coroutinesflowapp
 
-import android.app.Application
-import com.android.study.coroutinesflowapp.di.mainModule
-import com.android.study.coroutinesflowapp.di.networkModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import com.android.study.coroutinesflowapp.di.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 
 /**
  * @author Kulbaka Nataly
  * @date 30.06.2022
  */
-class App : Application() {
+class App : DaggerApplication() {
 
-    override fun onCreate() {
-        super.onCreate()
-
-        startKoin {
-            androidContext(this@App)
-            modules(
-                networkModule,
-                mainModule
-            )
-        }
-
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.builder().application(this).build()
     }
 }
