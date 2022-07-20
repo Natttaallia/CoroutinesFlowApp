@@ -4,14 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.study.coroutinesflowapp.api.Monster
 import com.android.study.coroutinesflowapp.api.ApiService
+import com.android.study.coroutinesflowapp.api.Monster
+import com.android.study.coroutinesflowapp.api.MonstersRepository
 import com.android.study.coroutinesflowapp.api.Spell
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val networkService: ApiService) : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val networkService: ApiService,
+    private val monstersRepository: MonstersRepository
+) : ViewModel() {
     private var jobMonsters: Job? = null
     private var jobSpells: Job? = null
     private val query = MutableStateFlow<String?>("")
@@ -51,9 +55,9 @@ class MainViewModel @Inject constructor(private val networkService: ApiService) 
         jobMonsters?.cancel()
         jobMonsters = viewModelScope.launch(Dispatchers.IO) {
             val response =
-                networkService.searchMonsters(query ?: "")
+                monstersRepository.getMonsters(query ?: "")
             withContext(Dispatchers.Main) {
-                _monsters.value = response.results
+                _monsters.value = response
             }
         }
     }
