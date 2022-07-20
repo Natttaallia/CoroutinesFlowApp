@@ -7,6 +7,5 @@ import com.google.gson.annotations.SerializedName
  * @date 30.06.2022
  */
 data class ApiMonstersResponse(
-    @SerializedName("results")
     val results: ArrayList<Monster>
 )
