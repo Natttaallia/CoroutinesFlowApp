@@ -21,11 +21,11 @@ class MainFragment : Fragment() {
     private var binding: MainFragmentBinding? = null
 
     private val adapterMonsters by lazy {
-        MonstersAdapter(arrayListOf())
+        MonstersAdapter()
     }
 
     private val adapterSpells by lazy {
-        SpellsAdapter(arrayListOf())
+        SpellsAdapter()
     }
 
     override fun onCreateView(
@@ -50,12 +50,12 @@ class MainFragment : Fragment() {
         binding?.searchSpellsRv?.adapter = adapterSpells
         viewModel.monsters.observe(viewLifecycleOwner) {
             it?.let {
-                adapterMonsters.updateData(it)
+                adapterMonsters.submitList(it)
             }
         }
         viewModel.spells.observe(viewLifecycleOwner) {
             it?.let {
-                adapterSpells.updateData(it)
+                adapterSpells.submitList(it)
             }
         }
     }

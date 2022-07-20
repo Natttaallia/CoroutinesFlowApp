@@ -1,6 +1,6 @@
 package com.android.study.coroutinesflowapp.api
 
-import com.google.gson.annotations.SerializedName
+import com.android.study.coroutinesflowapp.ui.main.adapter.diffUtils.DiffUtilItem
 
 /**
  * @author Kulbaka Nataly
@@ -10,4 +10,6 @@ data class Monster(
     val name: String,
     val size: String,
     val type: String
-)
+) : DiffUtilItem {
+    override fun getId(): Int = name.hashCode()
+}

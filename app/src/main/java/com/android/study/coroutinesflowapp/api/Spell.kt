@@ -1,5 +1,6 @@
 package com.android.study.coroutinesflowapp.api
 
+import com.android.study.coroutinesflowapp.ui.main.adapter.diffUtils.DiffUtilItem
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -11,4 +12,6 @@ data class Spell(
     val desc: String,
     @SerializedName("higher_level")
     val higherLevel: String
-)
+) : DiffUtilItem {
+    override fun getId(): Int = name.hashCode()
+}
