@@ -1,6 +1,7 @@
 package com.android.study.coroutinesflowapp.di
 
 import com.android.study.coroutinesflowapp.App
+import com.android.study.coroutinesflowapp.di.annotations.AppScope
 import com.android.study.coroutinesflowapp.di.modules.AppsDeps
 import com.android.study.coroutinesflowapp.di.modules.FragmentBuildersModule
 import com.android.study.coroutinesflowapp.di.modules.MainModule
@@ -14,7 +15,7 @@ import javax.inject.Singleton
  * @author Kulbaka Nataly
  * @date 20.07.2022
  */
-@Singleton
+@AppScope
 @Component(
     modules = [AndroidSupportInjectionModule::class, FragmentBuildersModule::class, MainModule::class],
     dependencies = [AppsDeps::class]
