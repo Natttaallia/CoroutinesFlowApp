@@ -1,6 +1,7 @@
 package com.android.study.coroutinesflowapp.di
 
 import com.android.study.coroutinesflowapp.App
+import com.android.study.coroutinesflowapp.di.modules.AppsDeps
 import com.android.study.coroutinesflowapp.di.modules.FragmentBuildersModule
 import com.android.study.coroutinesflowapp.di.modules.MainModule
 import dagger.BindsInstance
@@ -15,7 +16,8 @@ import javax.inject.Singleton
  */
 @Singleton
 @Component(
-    modules = [ AndroidSupportInjectionModule::class, FragmentBuildersModule::class, MainModule::class ]
+    modules = [AndroidSupportInjectionModule::class, FragmentBuildersModule::class, MainModule::class],
+    dependencies = [AppsDeps::class]
 )
 interface AppComponent : AndroidInjector<App> {
 
@@ -23,6 +25,8 @@ interface AppComponent : AndroidInjector<App> {
     interface Builder {
         @BindsInstance
         fun application(app: App): Builder
+
+        fun appDeps(appsDeps: AppsDeps): Builder
 
         fun build(): AppComponent
     }
