@@ -13,23 +13,23 @@ import com.android.study.coroutinesflowapp.di.FeatureComponent
 import com.android.study.coroutinesflowapp.ui.main.adapter.MonstersAdapter
 import com.android.study.coroutinesflowapp.ui.main.adapter.SpellsAdapter
 import com.android.study.coroutinesflowapp.utils.Analytics
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class MainFragment : DaggerFragment() {
+@AndroidEntryPoint
+class MainFragment : Fragment() {
 
     companion object {
         fun newInstance() = MainFragment()
     }
 
     @Inject
-    lateinit var factory: MainViewModelFactory.Factory
-
-    @Inject
     lateinit var featureComponent: FeatureComponent.Builder
 
-    private val viewModel: MainViewModel by viewModels {
-        factory.create("myParam")
+    private val viewModel: MainViewModel by lazy {
+        val viewModel: MainViewModel by viewModels()
+        viewModel.someParam = "myParam"
+        viewModel
     }
 
     private var binding: MainFragmentBinding? = null

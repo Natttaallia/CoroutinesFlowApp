@@ -5,14 +5,20 @@ import com.android.study.coroutinesflowapp.api.ApiService
 import com.android.study.coroutinesflowapp.api.Monster
 import com.android.study.coroutinesflowapp.api.MonstersRepository
 import com.android.study.coroutinesflowapp.api.Spell
+import com.android.study.coroutinesflowapp.di.annotations.Spells
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
-class MainViewModel(
-    private val someParam: String,
-    private val networkService: ApiService,
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    @Spells private val networkService: ApiService,
     private val monstersRepository: MonstersRepository
 ) : ViewModel() {
+
+    lateinit var someParam: String
+
     private var jobMonsters: Job? = null
     private var jobSpells: Job? = null
     private val query = MutableStateFlow<String?>("")

@@ -5,12 +5,14 @@ import com.android.study.coroutinesflowapp.di.annotations.Monsters
 import com.android.study.coroutinesflowapp.di.annotations.Spells
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 /**
  * @author Kulbaka Nataly
  * @date 20.07.2022
  */
-@Module
+@[Module InstallIn(SingletonComponent::class)]
 class NetworkModule {
 
     @Spells
