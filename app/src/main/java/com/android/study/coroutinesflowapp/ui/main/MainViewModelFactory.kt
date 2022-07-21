@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.android.study.coroutinesflowapp.api.ApiService
 import com.android.study.coroutinesflowapp.api.MonstersRepository
+import com.android.study.coroutinesflowapp.di.annotations.Spells
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -14,7 +15,7 @@ import dagger.assisted.AssistedInject
  */
 class MainViewModelFactory @AssistedInject constructor(
     @Assisted("someParam") private val someParam: String,
-    private val networkService: ApiService,
+    @Spells private val networkService: ApiService,
     private val monstersRepository: MonstersRepository
 ) : ViewModelProvider.Factory {
 
