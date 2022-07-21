@@ -22,6 +22,8 @@ import javax.inject.Singleton
 )
 interface AppComponent : AndroidInjector<App> {
 
+    fun featureComponent(): FeatureComponent.Builder
+
     @Component.Builder
     interface Builder {
         @BindsInstance

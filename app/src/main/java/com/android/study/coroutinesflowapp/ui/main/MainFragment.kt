@@ -1,6 +1,7 @@
 package com.android.study.coroutinesflowapp.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.android.study.coroutinesflowapp.databinding.MainFragmentBinding
+import com.android.study.coroutinesflowapp.di.FeatureComponent
 import com.android.study.coroutinesflowapp.ui.main.adapter.MonstersAdapter
 import com.android.study.coroutinesflowapp.ui.main.adapter.SpellsAdapter
 import com.android.study.coroutinesflowapp.utils.Analytics
@@ -22,6 +24,9 @@ class MainFragment : DaggerFragment() {
 
     @Inject
     lateinit var factory: MainViewModelFactory.Factory
+
+    @Inject
+    lateinit var featureComponent: FeatureComponent.Builder
 
     private val viewModel: MainViewModel by viewModels {
         factory.create("myParam")
@@ -57,6 +62,7 @@ class MainFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.w("feature component", featureComponent.toString())
         binding?.searchTv?.doAfterTextChanged {
             viewModel.setQuery(it.toString())
         }
