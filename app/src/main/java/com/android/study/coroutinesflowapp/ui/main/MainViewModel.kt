@@ -1,18 +1,15 @@
 package com.android.study.coroutinesflowapp.ui.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.android.study.coroutinesflowapp.api.ApiService
 import com.android.study.coroutinesflowapp.api.Monster
 import com.android.study.coroutinesflowapp.api.MonstersRepository
 import com.android.study.coroutinesflowapp.api.Spell
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
+class MainViewModel(
+    private val someParam: String,
     private val networkService: ApiService,
     private val monstersRepository: MonstersRepository
 ) : ViewModel() {

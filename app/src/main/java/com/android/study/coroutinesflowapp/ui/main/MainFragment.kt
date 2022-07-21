@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.android.study.coroutinesflowapp.databinding.MainFragmentBinding
 import com.android.study.coroutinesflowapp.ui.main.adapter.MonstersAdapter
 import com.android.study.coroutinesflowapp.ui.main.adapter.SpellsAdapter
@@ -20,7 +21,11 @@ class MainFragment : DaggerFragment() {
     }
 
     @Inject
-    lateinit var viewModel: MainViewModel
+    lateinit var factory: MainViewModelFactory.Factory
+
+    private val viewModel: MainViewModel by viewModels {
+        factory.create("myParam")
+    }
 
     private var binding: MainFragmentBinding? = null
 
